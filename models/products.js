@@ -14,3 +14,45 @@
 // const Product = mongoose.model("Product", ProductSchema);
 
 // module.exports = Product;
+
+import sequelize from "../database-connection.js";
+import { DataTypes } from "sequelize";
+import Category from "./categories.js"; 
+
+const Product = sequelize.define("Product", {
+  productName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+//   categoriesId: {
+//     type: DataTypes.INTEGER, 
+//     allowNull: false,
+//   },
+//   
+flavours: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  bestSeller: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.STRING, // Consider using a numeric type for price, like DECIMAL or FLOAT
+    allowNull: false,
+  },
+  images: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+// Define associations
+Product.belongsTo(Category/*, { foreignKey: 'categoriesId' }*/); // Product belongs to a Category
+Category.hasMany(Product); // A Category has many Products
+
+export default Product;
