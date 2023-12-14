@@ -4,15 +4,21 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 import cors from 'cors'
+import categoryRouter from '../first-rerun-back-end/routes/categoryRoute.js'
+import productRouter from './routes/productRoute.js'
 
 const app = express()
 app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 app.use(cors());
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
+
+app.use('/api/category',categoryRouter)
+app.use('/api/product',productRouter)
 
 // app.use(
 //     cors({
@@ -29,7 +35,7 @@ app.use("/upload", express.static('upload'))
 
 
 
-sequelize.sync({ force:false });
+sequelize.sync({ force:false});
 
 app.listen(4000,()=>{
 
