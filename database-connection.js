@@ -1,11 +1,22 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv'
 
-const sequelize = new Sequelize("", "root", "", {
+dotenv.config()
+
+const sequelize = new Sequelize("rerun", "sa", `${process.env.DB_PASSWORD}`, {
   host: "localhost",
-  dialect: "mysql",
-  port: "3307",
+  dialect: "mssql",
+  port: "1433",
+  dialectOptions: {
+    options: {
+      encrypt: true,
+    }
+  }
 });
+
+
 try {
+  await sequelize.authenticate();
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
