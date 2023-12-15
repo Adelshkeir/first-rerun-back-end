@@ -26,14 +26,24 @@ export const getOneProduct = asyncHandler(async (req, res) => {
 // @desc    Create product
 // @route   POST /api/products
 // @access  Private
-export const createProduct = asyncHandler(async (req, res) => {
-    if (!req.body.value) {
-        res.status(400)
-        throw new Error('Cannot create product')
+export const createProduct = asyncHandler(
+        async (req, res) => {
+        console.log(req.body)
+        if (!req.body) {
+            res.status(400)
+            throw new Error('Cannot create product')
+        }
+        try {
+            
+            const product = await Product.create(req.body)
+            res.status(200).json(product)
+            return
+        } catch (error) {
+            console.log(error.message)
+            return
+        }
     }
-    const product = await Product.create(req.body)
-    res.status(200).json(product)
-})
+)
 
 // @desc    Update product
 // @route   PUT /api/products/:id

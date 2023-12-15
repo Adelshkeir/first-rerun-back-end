@@ -1,5 +1,6 @@
-import Category from '../models/categoryModel.js';
+// import Category from '../models/categoryModel.js';
 import asyncHandler from 'express-async-handler';
+import {Category} from '../models/relations.js'
 
 // @desc    Get categories
 // @route   GET /api/categories
@@ -27,9 +28,13 @@ export const getOneCategory = asyncHandler(async (req, res) => {
 // @route   POST /api/categories
 // @access  Private
 export const createCategory = asyncHandler(async (req, res) => {
-    if (!req.body.value) {
+    const { category_name, category_image, date } = req.body
+    if (!req.body) {
         res.status(400)
         throw new Error('Cannot create category')
+    }
+    if (!category_name || !category_image.length > 0 || !date) {
+        return res.status(500).json({ error: 'all fields are required' })   
     }
     const category = await Category.create(req.body)
     res.status(200).json(category)
