@@ -6,10 +6,11 @@ dotenv.config()
 import cors from 'cors'
 import categoryRouter from '../first-rerun-back-end/routes/categoryRoute.js'
 import productRouter from './routes/productRoute.js'
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express()
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:false}));
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
 
 app.use('/api/category',categoryRouter)
 app.use('/api/product',productRouter)
+
+app.use(errorHandler)
 
 // app.use(
 //     cors({
@@ -30,9 +33,6 @@ app.use('/api/product',productRouter)
 
 
 app.use("/upload", express.static('upload'))
-
-
-
 
 
 sequelize.sync({ force:false});

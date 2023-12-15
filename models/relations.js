@@ -1,7 +1,7 @@
 import Category from "./categoryModel.js";
 import Product from "./productModel.js";
 
-Category.hasMany(Product, { foreignKey: { name: "categoryId", allowNull: false } });
-Product.belongsTo(Category, { foreignKey: { name: "categoryId", allowNull: false } });
+Category.hasMany(Product, { foreignKey: "categoryId", allowNull: false, onDelete: 'CASCADE' });
+Product.belongsTo(Category, { foreignKey: "categoryId", allowNull: false });
 
-export {Category, Product}
+export { Category, Product }

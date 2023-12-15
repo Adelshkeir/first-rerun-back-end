@@ -1,12 +1,17 @@
 // import Category from '../models/categoryModel.js';
 import asyncHandler from 'express-async-handler';
-import {Category} from '../models/relations.js'
+import { Category } from '../models/relations.js'
+import { Product } from '../models/relations.js';
 
 // @desc    Get categories
 // @route   GET /api/categories
 // @access  Private
 export const getAllCategories = asyncHandler(async (req, res) => {
-    const category = await Category.findAll()
+    const category = await Category.findAll({
+        include: [{
+            model: Product,
+        }]
+    })
     res.status(200).json(category)
 })
 
@@ -15,7 +20,11 @@ export const getAllCategories = asyncHandler(async (req, res) => {
 // @access  Private
 export const getOneCategory = asyncHandler(async (req, res) => {
     const { id } = req.params
-    const category = await Category.findByPk(id)
+    const category = await Category.findByPk((id), {
+        include: [{
+            model: Product,
+        }]
+    })
     if (!category) {
         res.status(400)
         throw new Error('Cannot find category')
@@ -29,12 +38,9 @@ export const getOneCategory = asyncHandler(async (req, res) => {
 // @access  Private
 export const createCategory = asyncHandler(async (req, res) => {
     const { category_name, category_image, date } = req.body
-    if (!req.body) {
-        res.status(400)
-        throw new Error('Cannot create category')
-    }
     if (!category_name || !category_image.length > 0 || !date) {
-        return res.status(500).json({ error: 'all fields are required' })   
+        res.status(400)
+        throw new Error('all fields are required')
     }
     const category = await Category.create(req.body)
     res.status(200).json(category)
@@ -59,8 +65,8 @@ export const updateCategory = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Update category
-// @route   PUT /api/categories/:id
+// @desc    Delete category
+// @route   DELETE /api/categories/:id
 // @access  Private
 export const deleteCategory = asyncHandler(async (req, res) => {
     const { id } = req.params

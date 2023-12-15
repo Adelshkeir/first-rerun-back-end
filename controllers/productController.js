@@ -1,20 +1,31 @@
 import Product from '../models/productModel.js';
+import Category from '../models/categoryModel.js';
 import asyncHandler from 'express-async-handler';
 
 // @desc    Get products
 // @route   GET /api/products
 // @access  Private
 export const getAllProducts = asyncHandler(async (req, res) => {
-    const product = await Product.findAll()
+    const product = await Product.findAll({
+        include: [{
+            model: Category
+        }]
+    })
     res.status(200).json(product)
 })
+
+
 
 // @desc    Get one product
 // @route   GET /api/products/:id
 // @access  Private
 export const getOneProduct = asyncHandler(async (req, res) => {
     const { id } = req.params
-    const product = await Product.findByPk(id)
+    const product = await Product.findByPk((id), {
+        include: [{
+            model: Category
+        }]
+    })
     if (!product) {
         res.status(400)
         throw new Error('Cannot find product')
@@ -27,21 +38,15 @@ export const getOneProduct = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private
 export const createProduct = asyncHandler(
-        async (req, res) => {
-        console.log(req.body)
-        if (!req.body) {
+    async (req, res) => {
+        const { product_name, description, flavours, bestSeller, price, } = req.body
+        if (!product_name || !description || !flavours || !bestSeller || !price) {
             res.status(400)
             throw new Error('Cannot create product')
         }
-        try {
-            
-            const product = await Product.create(req.body)
-            res.status(200).json(product)
-            return
-        } catch (error) {
-            console.log(error.message)
-            return
-        }
+        const product = await Product.create(req.body)
+        res.status(200).json(product)
+
     }
 )
 
