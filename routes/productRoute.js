@@ -31,6 +31,7 @@
   //  module.exports=router
 
   import express from 'express';
+  import upload from "../multer.js";
   import {
     getAllProducts,
     getProductById,
@@ -48,10 +49,10 @@
   router.get('/:id', getProductById);
   
   // Route to create a new product
-  router.post('/', createProduct);
+  router.post('/',upload.single('images'), createProduct);
   
   // Route to update a product by ID
-  router.put('/:id', updateProductById);
+  router.put('/:id',upload.single('images'), updateProductById);
   
   // Route to delete a product by ID
   router.delete('/:id', deleteProductById);

@@ -10,19 +10,19 @@
 
 // module.exports = Feedback;
 
-import sequelize from "../database-connection.js";
-import { DataTypes } from "sequelize";
-import Admin from "../models/admin.js"; 
+// import sequelize from "../database-connection.js";
+// import { DataTypes } from "sequelize";
+// import Admin from "../models/admin.js"; 
 
-const Feedback = sequelize.define("Feedback", {
-    comment: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-});
+// const Feedback = sequelize.define("Feedback", {
+//     comment: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     }
+// });
 
 
-Feedback.belongsTo(Admin); // Many feedbacks belong to one admin
-Admin.hasMany(Feedback); // One admin has many feedbacks
+// Feedback.belongsTo(Admin); 
+// Admin.hasMany(Feedback); 
 
-export default Feedback;
+// export default Feedback;

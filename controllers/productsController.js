@@ -54,6 +54,100 @@ export const getProductById = async (req, res) => {
   }
 };
 
+// export const createProduct = async (req, res) => {
+//   const images = req.file?.path
+//   try {
+//     const {
+//       productName,
+//       description,
+//       flavours,
+//       bestSeller,
+//       price,
+//       images,
+//       CategoryId, 
+//     } = req.body;
+
+//     const newProduct = await Product.create({
+//       productName,
+//       description,
+//       flavours,
+//       bestSeller,
+//       price,
+//       images,
+//       CategoryId,
+//     });
+
+//     res.status(201).json({
+//       data: newProduct,
+//       status: 201,
+//       success: true,
+//       message: 'Product created successfully!',
+//     });
+//   } catch (err) {
+//     res.status(400).json({
+//       data: null,
+//       status: 400,
+//       success: false,
+//       message: err.message,
+//     });
+//   }
+// };
+
+// export const updateProductById = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const img = req.file?.path
+//     const {
+//       productName,
+//       description,
+//       flavours,
+//       bestSeller,
+//       price,
+//       images,
+//       CategoryId, 
+//     } = req.body;
+
+//     const product = await Product.findByPk(id);
+
+//     if (!product) {
+//       return res.status(404).json({
+//         data: null,
+//         status: 404,
+//         success: false,
+//         message: 'Product not found!',
+//       });
+//     }
+
+//     await Product.update(
+//       {
+//         productName,
+//         description,
+//         flavours,
+//         bestSeller,
+//         price,
+//         images,
+//         CategoryId,
+//       },
+//       { where: { id } }
+//     );
+
+//     const updatedProduct = await Product.findByPk(id);
+
+//     res.status(200).json({
+//       data: updatedProduct,
+//       status: 200,
+//       success: true,
+//       message: 'Product updated successfully!',
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       data: null,
+//       status: 500,
+//       success: false,
+//       message: err.message,
+//     });
+//   }
+// };
 export const createProduct = async (req, res) => {
   try {
     const {
@@ -62,9 +156,10 @@ export const createProduct = async (req, res) => {
       flavours,
       bestSeller,
       price,
-      images,
-      CategoryId, 
+      CategoryId,
     } = req.body;
+
+    const imagePath = req.file ? req.file.path : ''; // Get the image path from the uploaded file
 
     const newProduct = await Product.create({
       productName,
@@ -72,7 +167,7 @@ export const createProduct = async (req, res) => {
       flavours,
       bestSeller,
       price,
-      images,
+      images: imagePath, // Store the image path in the 'images' field
       CategoryId,
     });
 
@@ -101,9 +196,10 @@ export const updateProductById = async (req, res) => {
       flavours,
       bestSeller,
       price,
-      images,
-      CategoryId, 
+      CategoryId,
     } = req.body;
+
+    const imagePath = req.file ? req.file.path : ''; // Get the image path from the uploaded file
 
     const product = await Product.findByPk(id);
 
@@ -123,7 +219,7 @@ export const updateProductById = async (req, res) => {
         flavours,
         bestSeller,
         price,
-        images,
+        images: imagePath, // Update the image path in the 'images' field
         CategoryId,
       },
       { where: { id } }
@@ -146,6 +242,7 @@ export const updateProductById = async (req, res) => {
     });
   }
 };
+
 
 export const deleteProductById = async (req, res) => {
   try {
