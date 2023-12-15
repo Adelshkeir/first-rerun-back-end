@@ -5,6 +5,8 @@ import cors from 'cors';
 import reviewRoutes from './routes/reviewRoute.js'
 import productRoutes from './routes/productRoute.js';
 import categoryRoutes from './routes/categoryRoute.js'; 
+import feedbackRoutes from './routes/feedbackRoutes.js';
+import adminRoutes from './routes/Admin.js';
 dotenv.config();
 const app = express()
 
@@ -38,6 +40,8 @@ app.get('/',(req,res)=>{
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/products', productRoutes); 
 app.use('/api/categories', categoryRoutes); 
+app.use('/api/feedbacks', feedbackRoutes);
+app.use('/api/admins', adminRoutes);
 
 
 app.listen(PORT, () => {
