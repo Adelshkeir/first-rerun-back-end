@@ -9,6 +9,7 @@ import productRouter from './routes/productRoute.js'
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express()
+app.use(express.static('./'))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cors());
@@ -18,8 +19,8 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/api/category',categoryRouter)
-app.use('/api/product',productRouter)
+app.use('/api',categoryRouter)
+app.use('/api',productRouter)
 
 app.use(errorHandler)
 
@@ -30,9 +31,6 @@ app.use(errorHandler)
 //       credentials: true,
 //     })
 //   );
-
-
-app.use("/upload", express.static('upload'))
 
 
 sequelize.sync({ force:false});

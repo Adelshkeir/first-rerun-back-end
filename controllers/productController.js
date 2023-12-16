@@ -39,12 +39,13 @@ export const getOneProduct = asyncHandler(async (req, res) => {
 // @access  Private
 export const createProduct = asyncHandler(
     async (req, res) => {
-        const { product_name, description, flavours, bestSeller, price, } = req.body
-        if (!product_name || !description || !flavours || !bestSeller || !price) {
+        const image = req.file
+        const { product_name, description, flavours, bestSeller, price ,categoryId} = req.body
+        if (!product_name || !description || !flavours || !bestSeller || !price ||!categoryId) {
             res.status(400)
             throw new Error('Cannot create product')
         }
-        const product = await Product.create(req.body)
+        const product = await Product.create({...req.body,image:image.path})
         res.status(200).json(product)
 
     }
@@ -54,6 +55,7 @@ export const createProduct = asyncHandler(
 // @route   PUT /api/products/:id
 // @access  Private
 export const updateProduct = asyncHandler(async (req, res) => {
+    const image = req.file
     const { id } = req.params
     const product = await Product.findByPk(id)
 
@@ -62,7 +64,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
         throw new Error('Product not found')
     }
 
-    await Product.update({ ...req.body }, { where: { id: id } })
+    await Product.update({ ...req.body,image:image.path }, { where: { id: id } })
     const updatedProduct = await Product.findByPk(id)
     res.status(200).json(updatedProduct)
 
