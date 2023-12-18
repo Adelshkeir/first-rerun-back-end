@@ -3,6 +3,11 @@ import { DataTypes } from "sequelize";
 
 
 const Review = sequelize.define("Review", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
