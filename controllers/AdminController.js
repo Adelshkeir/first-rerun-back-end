@@ -1,6 +1,5 @@
-import Admin from '../models/admin.js';
+import Admin from "../models/admin.js";
 import sequelize from "../database-connection.js";
-
 
 export const getAllAdmins = async (req, res) => {
   try {
@@ -9,7 +8,7 @@ export const getAllAdmins = async (req, res) => {
       data: allAdmins,
       status: 200,
       success: true,
-      message: 'All admins found!',
+      message: "All admins found!",
     });
   } catch (err) {
     res.status(500).json({
@@ -32,7 +31,7 @@ export const getAdminById = async (req, res) => {
         data: null,
         status: 404,
         success: false,
-        message: 'Admin not found!',
+        message: "Admin not found!",
       });
     }
 
@@ -40,7 +39,7 @@ export const getAdminById = async (req, res) => {
       data: admin,
       status: 200,
       success: true,
-      message: 'Admin found!',
+      message: "Admin found!",
     });
   } catch (err) {
     res.status(500).json({
@@ -65,7 +64,7 @@ export const createAdmin = async (req, res) => {
       data: newAdmin,
       status: 201,
       success: true,
-      message: 'Admin created successfully!',
+      message: "Admin created successfully!",
     });
   } catch (err) {
     res.status(400).json({
@@ -89,7 +88,7 @@ export const updateAdminById = async (req, res) => {
         data: null,
         status: 404,
         success: false,
-        message: 'Admin not found!',
+        message: "Admin not found!",
       });
     }
 
@@ -107,7 +106,7 @@ export const updateAdminById = async (req, res) => {
       data: updatedAdmin,
       status: 200,
       success: true,
-      message: 'Admin updated successfully!',
+      message: "Admin updated successfully!",
     });
   } catch (err) {
     res.status(500).json({
@@ -130,7 +129,7 @@ export const deleteAdminById = async (req, res) => {
         data: null,
         status: 404,
         success: false,
-        message: 'Admin not found!',
+        message: "Admin not found!",
       });
     }
 
@@ -142,7 +141,7 @@ export const deleteAdminById = async (req, res) => {
       data: null,
       status: 200,
       success: true,
-      message: 'Admin deleted successfully!',
+      message: "Admin deleted successfully!",
     });
   } catch (err) {
     res.status(500).json({

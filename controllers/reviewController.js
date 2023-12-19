@@ -1,6 +1,5 @@
-import sequelize from "../database-connection.js";
-import Review from '../models/reviews.js';
-import Product from '../models/products.js'; 
+import Review from "../models/reviews.js";
+import Product from "../models/productModel.js";
 
 export const getAllReviews = async (req, res) => {
   try {
@@ -9,7 +8,7 @@ export const getAllReviews = async (req, res) => {
       data: allReviews,
       status: 200,
       success: true,
-      message: 'All reviews found!',
+      message: "All reviews found!",
     });
   } catch (err) {
     res.status(500).json({
@@ -32,7 +31,7 @@ export const getReviewById = async (req, res) => {
         data: null,
         status: 404,
         success: false,
-        message: 'Review not found!',
+        message: "Review not found!",
       });
     }
 
@@ -40,7 +39,7 @@ export const getReviewById = async (req, res) => {
       data: review,
       status: 200,
       success: true,
-      message: 'Review found!',
+      message: "Review found!",
     });
   } catch (err) {
     res.status(500).json({
@@ -58,7 +57,7 @@ export const createReview = async (req, res) => {
 
     const newReview = await Review.create({
       name: name,
-      reviews:reviews,
+      reviews: reviews,
       ProductId: ProductId,
     });
 
@@ -66,7 +65,7 @@ export const createReview = async (req, res) => {
       data: newReview,
       status: 201,
       success: true,
-      message: 'Review created successfully!',
+      message: "Review created successfully!",
     });
   } catch (err) {
     res.status(400).json({
@@ -90,7 +89,7 @@ export const updateReviewById = async (req, res) => {
         data: null,
         status: 404,
         success: false,
-        message: 'Review not found!',
+        message: "Review not found!",
       });
     }
 
@@ -109,7 +108,7 @@ export const updateReviewById = async (req, res) => {
       data: updatedReview,
       status: 200,
       success: true,
-      message: 'Review updated successfully!',
+      message: "Review updated successfully!",
     });
   } catch (err) {
     res.status(500).json({
@@ -132,7 +131,7 @@ export const deleteReviewById = async (req, res) => {
         data: null,
         status: 404,
         success: false,
-        message: 'Review not found!',
+        message: "Review not found!",
       });
     }
 
@@ -144,7 +143,7 @@ export const deleteReviewById = async (req, res) => {
       data: null,
       status: 200,
       success: true,
-      message: 'Review deleted successfully!',
+      message: "Review deleted successfully!",
     });
   } catch (err) {
     res.status(500).json({
