@@ -10,7 +10,8 @@ export const getAllCategories = asyncHandler(async (req, res) => {
     const category = await Category.findAll({
         include: [{
             model: Product,
-        }]
+        }],            order: [["id", "DESC"]] 
+
     })
     res.status(200).json(category)
 })
@@ -54,10 +55,16 @@ export const updateCategory = asyncHandler(async (req, res) => {
     const image = req.file
     const { id } = req.params
     const category = await Category.findByPk(id)
-
+console.log(req)
     if (!category) {
         res.status(400)
         throw new Error('Category not found')
+    }
+
+    if(!image) {
+        await Category.update({ ...req.body}, { where: { id: id } })
+        const updatedCategory = await Category.findByPk(id)
+        return res.status(200).json(updatedCategory)
     }
 
     await Category.update({ ...req.body, category_image: image.path }, { where: { id: id } })

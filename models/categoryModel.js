@@ -9,7 +9,7 @@ const Category = sequelize.define('Category', {
     },
     category_image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     date: {
         type: DataTypes.DATEONLY,
