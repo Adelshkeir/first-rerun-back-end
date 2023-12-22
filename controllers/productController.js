@@ -5,16 +5,30 @@ import Category from "../models/categoryModel.js";
 // @route   GET /api/products
 // @access  Private
 export const getAllProducts = asyncHandler(async (req, res) => {
-  const product = await Product.findAll({
+  let cat = req.query.category_name;
+
+  let config = {
     include: [
       {
         model: Category,
+        where: { category_name: cat },
       },
     ],
-  });
-  res.status(200).json(product);
-});
+  };
 
+  if (cat) {
+    const category = await Category.findOne({ where: { category_name: cat } });
+
+    if (!category) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+
+    config.include[0].where.id = category.id;
+  }
+
+  const products = await Product.findAll(config);
+  res.status(200).json(products);
+});
 // @desc    Get one product
 // @route   GET /api/products/:id
 // @access  Private
@@ -79,7 +93,6 @@ export const updateProduct = asyncHandler(async (req, res) => {
   const updatedProduct = await Product.findByPk(id);
   res.status(200).json(updatedProduct);
 });
-
 
 // @desc    Update product
 // @route   PUT /api/products/:id
