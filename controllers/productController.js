@@ -59,6 +59,14 @@ export const createProduct = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Cannot create product");
   }
+  // Check if a product with the same name already exists
+  const existingProduct = await Product.findOne({ where: { product_name } });
+  if (existingProduct) {
+    // If the product exists, send an error message
+    res.status(400);
+    throw new Error("Product name must be unique.");
+  }
+
   const category = await Category.findOne({
     where: { category_name: category_name },
   });

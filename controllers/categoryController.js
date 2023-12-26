@@ -38,6 +38,15 @@ export const createCategory = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("all fields are required");
   }
+
+  // Check if a category with the same name already exists
+  const existingCategory = await Category.findOne({ where: { category_name } });
+  if (existingCategory) {
+    // If the category exists, send an error message
+    res.status(400);
+    throw new Error("Category name must be unique.");
+  }
+
   const createdCategory = await Category.create({
     ...req.body,
     category_image: image.path,
