@@ -6,6 +6,7 @@ dotenv.config();
 import cors from "cors";
 import categoryRouter from "../first-rerun-back-end/routes/categoryRoute.js";
 import productRouter from "./routes/productRoute.js";
+import adminRouter from "./routes/adminRoute.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use("/api", categoryRouter);
 app.use("/api", productRouter);
+app.use("/api", adminRouter);
 
 app.use(errorHandler);
 

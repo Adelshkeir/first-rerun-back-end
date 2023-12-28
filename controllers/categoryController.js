@@ -1,8 +1,8 @@
 // import Category from '../models/categoryModel.js';
 import asyncHandler from "express-async-handler";
-import { Category } from "../models/relations.js";
-import { Product } from "../models/relations.js";
-
+import Category from "../models/categoryModel.js";
+import Product from "../models/relations.js";
+import Admin from "../models/relations.js";
 // @desc    Get categories
 // @route   GET /api/categories
 // @access  Private

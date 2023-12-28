@@ -1,6 +1,7 @@
 import Product from "../models/productModel.js";
 import Category from "../models/categoryModel.js";
 import asyncHandler from "express-async-handler";
+import Admin from "../models/adminModel.js";
 
 // @desc    Get products
 // @route   GET /api/products
