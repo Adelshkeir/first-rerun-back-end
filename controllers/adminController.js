@@ -12,7 +12,7 @@ export const registerAdmin = asyncHandler(async (req, res) => {
   }
 
   // Check if admin exists
-  const adminExists = await Admin.findOne({ email });
+  const adminExists = await Admin.findOne({ where: { email } });
 
   if (adminExists) {
     res.status(400);
@@ -52,7 +52,7 @@ export const loginAdmin = asyncHandler(async (req, res) => {
   }
 
   // Check for admin email
-  const admin = await Admin.findOne({ email });
+  const admin = await Admin.findOne({ where: { email } });
   //if admin and password are correct return the admin data
   if (admin && (await bcrypt.compare(password, admin.password))) {
     res.json({
@@ -68,7 +68,7 @@ export const loginAdmin = asyncHandler(async (req, res) => {
 });
 
 export const getAdmin = asyncHandler(async (req, res) => {
-    //req.admin.id that we set in the middleware
+  //req.admin.id that we set in the middleware
   const { id, name, email } = await Admin.findByPk(req.admin.id);
 
   res.status(200).json({

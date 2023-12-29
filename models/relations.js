@@ -15,11 +15,18 @@ Admin.hasMany(Product, {
 });
 Product.belongsTo(Admin, { foreignKey: "adminId", allowNull: false });
 
+
 Admin.hasMany(Category, {
-  foreignKey: "adminId",
-  allowNull: false,
-});
-Category.belongsTo(Admin, { foreignKey: "adminId", allowNull: false });
+  foreignKey: 'adminId',
+  as: 'category',
+ });
+ 
+ Category.belongsTo(Admin, {
+  foreignKey: 'adminId',
+  as: 'admin',
+ });
+ 
+
 
 // relationalModel.js
 export default {
