@@ -1,6 +1,7 @@
 import sequelize from "../database-connection.js";
 import { DataTypes } from "sequelize";
 
+
 const Category = sequelize.define('Category', {
     category_name: {
         type: DataTypes.STRING,
@@ -14,7 +15,8 @@ const Category = sequelize.define('Category', {
     date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
-    }
+    },
+
 });
 
 export default Category;

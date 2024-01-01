@@ -1,21 +1,12 @@
-import sequelize from "../database-connection.js";
-import { DataTypes } from "sequelize";
+// const mongoose = require("mongoose");
+// const Schema = mongoose.Schema;
 
-const Admin = sequelize.define("Admin", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+// const AdminSchema = new Schema({
+//     email: { type: String, required: true },
+//     password: { type: String, required: true },
+    
+// });
 
-export default Admin;
+// const Admin = mongoose.model("Admin", AdminSchema);
+
+// module.exports = Admin;
