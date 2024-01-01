@@ -8,6 +8,8 @@ import Admin from "../models/adminModel.js";
 // @access  Private
 export const getAllProducts = asyncHandler(async (req, res) => {
   const product = await Product.findAll({
+    where: { adminId: req.admin.id },
+    order: [["id", "DESC"]],
     include: [
       {
         model: Category,
@@ -23,6 +25,7 @@ export const getAllProducts = asyncHandler(async (req, res) => {
 export const getOneProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const product = await Product.findByPk(id, {
+    order: [["id", "DESC"]],
     include: [
       {
         model: Category,
@@ -79,6 +82,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     ...req.body,
     image: image.path,
     categoryId: category.id,
+    adminId: req.admin.id,
   });
   res.status(200).json(product);
 });
@@ -96,6 +100,21 @@ export const updateProduct = asyncHandler(async (req, res) => {
     throw new Error("Product not found");
   }
 
+  const admin = await Admin.findOne({ where: { id: req.admin.id } });
+
+  //Check for admin
+  if (!admin) {
+    res.status(401);
+    throw new Error("Admin not found");
+  }
+
+  // Make sure the logged in admin matches the admin product
+  if (String(product.adminId) !== String(admin.id)) {
+    res.status(401);
+    throw new Error("Admin not authorized");
+  }
+
+
   await Product.update(
     { ...req.body, image: image.path },
     { where: { id: id } }
@@ -104,12 +123,27 @@ export const updateProduct = asyncHandler(async (req, res) => {
   res.status(200).json(updatedProduct);
 });
 
-// @desc    Update product
-// @route   PUT /api/products/:id
+// @desc    Delete product
+// @route   Delete /api/products/:id
 // @access  Private
 export const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const product = await Product.findByPk(id);
+
+
+  const admin = await Admin.findOne({ where: { id: req.admin.id } });
+
+  //Check for admin
+  if (!admin) {
+    res.status(401);
+    throw new Error("Admin not found");
+  }
+
+  // Make sure the logged in admin matches the admin product
+  if (product.adminId !== admin.id) {
+    res.status(401);
+    throw new Error("Admin not authorized");
+  }
 
   if (!product) {
     res.status(400);

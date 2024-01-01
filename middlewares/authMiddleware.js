@@ -11,7 +11,7 @@ const Protect = asyncHandler(async (req, res, next) => {
   ) {
     try {
       // Get token from header
-      //split to turn it into an array because it is written as bearer token and we want the token which is on index 1
+      //split to turn it into an array of 2 elements because it is written as bearer token and we want the token which is on index 1
       token = req.headers.authorization.split(" ")[1];
 
       //Verify token

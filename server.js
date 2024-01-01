@@ -36,7 +36,7 @@ app.use(errorHandler);
 //     })
 //   );
 
-sequelize.sync({ force: false });
+sequelize.sync({ force: false});
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -48,11 +48,3 @@ const io = new Server(server, {
 server.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
-
-
-
-//ADMIN
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAzODUxODgyLCJleHAiOjE3MDM5MzgyODJ9.fYTF1_eRPeya2u9OiFzhrncWJ_vMeEFrUpIfxk2pydk
-
-//ADMIN1
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAzODUxOTEwLCJleHAiOjE3MDM5MzgzMTB9.QlU2Gvlq42Rn7Pi-EPN_gN97p-Kgo8YT9yUG3dBUq7U
