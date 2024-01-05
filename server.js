@@ -2,6 +2,7 @@ import express from "express";
 import adminRoutes from "./routes/Admin.js";
 import sequelize from "./database-connection.js";
 import reviewRoutes from "./routes/reviewRoute.js";
+import orderroutes from "./routes/order.js"
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
@@ -34,7 +35,7 @@ app.use("/api", categoryRouter);
 app.use("/api", productRouter);
 app.use("/api/admins", adminRoutes);
 app.use("/api/review", reviewRoutes);
-
+app.use("/api", orderroutes);
 app.use(errorHandler);
 
 sequelize.sync({ force: false });
