@@ -4,7 +4,7 @@ import passport from "passport";
 import passportConfig from "./googleConfig/passport.js";
 import session from "express-session";
 import googleAuthRoute from "./routes/googleAuthRoute.js";
-import axios from "axios";
+import orderroutes from "./routes/order.js"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -49,6 +49,7 @@ app.use("/api", productRouter);
 app.use("/api", adminRouter);
 app.use("/", adminGoogleRouter);
 app.use("/auth", googleAuthRoute);
+app.use("/api", orderroutes);
 
 app.use(errorHandler);
 
@@ -60,7 +61,7 @@ app.use(errorHandler);
 //     })
 //   );
 
-sequelize.sync({ force: false });
+sequelize.sync({ force: false});
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
