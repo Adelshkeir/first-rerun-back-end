@@ -53,11 +53,11 @@ export const getReviewById = async (req, res) => {
 
 export const createReview = async (req, res) => {
   try {
-    const { name, reviews, ProductId } = req.body;
+    const { name, review, ProductId } = req.body;
 
     const newReview = await Review.create({
       name: name,
-      reviews: reviews,
+      review: review,
       ProductId: ProductId,
     });
 
