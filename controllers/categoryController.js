@@ -34,7 +34,8 @@ export const getOneCategory = asyncHandler(async (req, res) => {
 // @route   POST /api/categories
 // @access  Private
 export const createCategory = asyncHandler(async (req, res) => {
-  const image = req.file;
+  const image = req.file?.path;
+  console.log(image)
   const { category_name, date } = req.body;
   if (!category_name || !date) {
     res.status(400);
@@ -51,7 +52,7 @@ export const createCategory = asyncHandler(async (req, res) => {
 
   const createdCategory = await Category.create({
     ...req.body,
-    category_image: image.path,
+    category_image: image,
     adminId: req.admin.id,
   });
   res.status(200).json(createdCategory);
@@ -61,7 +62,7 @@ export const createCategory = asyncHandler(async (req, res) => {
 // @route   PUT /api/categories/:id
 // @access  Private
 export const updateCategory = asyncHandler(async (req, res) => {
-  const image = req.file;
+  const image = req.file.path;
   const { id } = req.params;
   const category = await Category.findByPk(id);
   console.log(req);
@@ -91,7 +92,7 @@ export const updateCategory = asyncHandler(async (req, res) => {
   }
 
   await Category.update(
-    { ...req.body, category_image: image.path },
+    { ...req.body, category_image: image },
     { where: { id: id } }
   );
   const updatedCategory = await Category.findByPk(id);
