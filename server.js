@@ -5,6 +5,7 @@ import passportConfig from "./googleConfig/passport.js";
 import session from "express-session";
 import googleAuthRoute from "./routes/googleAuthRoute.js";
 import orderroutes from "./routes/order.js"
+import reviewRoutes from "./routes/reviewRoute.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -50,6 +51,7 @@ app.use("/api", adminRouter);
 app.use("/", adminGoogleRouter);
 app.use("/auth", googleAuthRoute);
 app.use("/api", orderroutes);
+app.use("/api/review", reviewRoutes);
 
 app.use(errorHandler);
 

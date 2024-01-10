@@ -1,12 +1,24 @@
-// const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
+import sequelize from "../database-connection.js";
+import { DataTypes } from "sequelize";
+import Product from "./productModel.js";
 
-// const ReviewSchema = new Schema({
-//     name: { type: String, required: true },
-//     reviews: { type: String, required: true },
-//     productId: { type: Schema.Types.ObjectId, ref: 'products', required: true }, // foreign key
-// });
+const Review = sequelize.define("Review", {
+id: {
+type: DataTypes.INTEGER,
+autoIncrement: true,
+primaryKey: true,
+},
+name: {
+type: DataTypes.STRING,
+allowNull: false,
+},
+review: {
+type: DataTypes.STRING,
+allowNull: false,
+},
+});
 
-// const Review = mongoose.model("Review", ReviewSchema);
+Product.hasMany(Review);
+Review.belongsTo(Product);
 
-// module.exports = Review;
+export default Review;

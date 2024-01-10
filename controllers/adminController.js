@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+  import jwt from "jsonwebtoken";
+  import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 import Admin from "../models/adminModel.js";
 
